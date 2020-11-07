@@ -1,0 +1,138 @@
+Porting Exynos5410 u-boot to recent version.
+
+The following documentation has as goal to keep record of changes done to get a modern version of u-boot on the ODROID-XU.
+
+The main assumption is that the Exynos5410 shares the same definitions of the modern drivers incorporated to the Exynos5 family on u-boot.
+Having that on mind, most changes are related with match name definitions to the actual driver structures and some custom parameters according to the old u-boot for smdk5410.
+
+Compilation notes:
+
+- Compilation done using gcc-arm-9.2-2019.12-x86_64-arm-none-gnueabi toolchain. I've used this link as reference
+(https://developer.toradex.com/knowledge-base/build-u-boot-and-linux-kernel-from-source-code#Toolchain_for_Hard_Float_Calling_Convention).
+
+- Before compiling, it is necessary to export config using "source ~/export_compiler".
+
+- After compiling, you will have spl/smdk5410-spl.bin and u-boot.bin, if you build it.
+
+- To flash bootloader, there's a sd_fusing.sh script on u-bootv2012.07/sd_fuse/smdk5410/
+
+28/10/2020
+
+Changes required for XU:
+
+- Add exynos5410*.dts files to u-boot /arch/arm/include/dts.
+- Modify definitions from all files.
+- Try to compile.
+
+Changes already done:
+
+- Modified all configuration files names to match Exynos5410 as smdk5410.
+
+30/10/2020
+
+Changes required for XU:
+
+- Modify definitions from all files.
+- Try to compile.
+
+Changes already done:
+
+- Modified exynos5410-common.h to match values between smdk5410.h and exynos5-common.h and exynos5250-common.h.
+- Modified smdk5410_defconfig to match values between smdk5410.h and exynos5-common.h and exynos5250-common.h.
+- Added exynos5410 dts-related files to u-boot /arch/arm/dts.
+
+01/11/2020
+
+Changes required for XU:
+
+- Add smdk5410/exynos5410 definitions in /include/configs/ files to support ODROID-XU compatibility.
+- Try to compile.
+
+Changes already done:
+
+- Modified smdk5410_spl.c, Kconfig, MAINTAINERS and Makefile to match exynos5.dtsi and exynos54xx.dtsi.
+- Modified smdk5410.h and exynos5410-common.h to match exynos5410 name definitions.
+- exynos5-dt-common.h, exynos5-common.h and exynos-common.h seems not necessary to be modified.
+
+02/11/2020
+
+Changes required for XU:
+
+- Check mach-exynos folder and compare initialization scripts with respect to /board/samsung/smdk5410/ files from u-boot 2012.
+- Add exynos5410 to Kconfig in /arch/arm/mach-exynos.
+- Try to compile.
+
+Changes already done:
+
+- Added /arm/arch/mach-exynos/ files.
+- Modified Kconfig to add Exynos5410 Target.
+
+03/11/2020
+
+Changes required for XU:
+
+- Check expressions on arch/arm/mach-exynos/include/mach/ headers files to include Exynos5410 support.
+- Try to compile.
+- Check u-boot 2020 /arch/arm/mach-exynos/clock.c clock definitions with respect to u-boot 2012 /arch/arm/cpu/armv7/exynos/clock.c
+- Add exynos5410_get_pll_clk() function to clock.c.
+
+Changes already done:
+
+- Added Exynos5410 case into cpu.h that appears in u-boot v2012.07.
+- Added Exynos5410 clock struct into /arch/arm/mach-exynos/include/mach/clock.h headers file ported from u-boot v2012.07.
+- Enumeration of PLLs on clk.h according to u-boot 2012.07 for Exynos5410.
+- Added proid_is_exynos5410() in clock.c.
+
+
+06/11/2020
+
+Changes required for XU:
+
+- Compare smdk5410 source files and header files with respect to mach-exynos to check compatibility between 5410 and exynos5/5250/5420.
+
+Changes already done:
+
+- Added CONFIG_EXYNOS5410 and CONFIG_SMDK5410 into config_whitelist.txt.
+- Added exynos54xx-odroidxu-leds.dtsi, exynos-syscon-restart.dtsi, exynos5420-trip-points.dtsi, exynos5410-odroidxu.dtb and exynos5410-smdk5410.dtb into EXYNOS5 section from /arch/arm/dts Makefile
+- Added exynos5410.h and exynos-audss-clk.h clock from linux/include/dt-bindings/clock/ to u-boot/include/dt-bindings/clock/ to fix 5410 dtb compilation.
+- Added samsung.h from linux/include/dt-bindings/pinctrl/ into u-boot/include/dt-bindings/pinctrl/.
+- Added samsung-i2s.h from linux/include/dt-bindings/sound/ into u-boot/include/dt-bindings/sound/.
+- Changed exynos54xx.dtsi and exynos5.dtsi to versions from linux mainline to support exynos5410 definitions.
+- Add exynos5410_get_pll_clk case on arch/arm/mach-exynos/clock.c get_pll_clk definition around line 1634.
+- Bypassed ddr3_mem_ctrl_init error changing dmc_init_ddr3.c line 25 to include EXYNOS5410_CONFIG definition.
+- Added CONFIG_EXYNOS5410 into u-boot/tools/Makefile to fix compilation error.
+- Removed all exynos5 based boards from u-boot/arch/arm/dts/Makefile due to dts mismatch related to porting exynos54xx.dtsi and exynos5.dtsi from linux repo to u-boot.
+
+07/11/2020
+
+Changes required for XU:
+
+- Compare smdk5410 source files and header files with respect to mach-exynos to check compatibility between 5410 and exynos5/5250/5420.
+
+Changes already done:
+
+- Modified buildroot/operating-system-dev/buildroot/boot/uboot/Config.in, uboot.mk and odroid-xu-defconfig to add custom local u-boot repo.
+
+Troubleshooting notes:
+
+- Debug says that some definitions don't exist and they have been commented out. They are:
+    
+    CONFIG_EXYNOS5410 from /include/configs/exynos5410-common.h (Partially solved on 06/11/2020)
+    CONFIG_SMDK5410 from /include/configs/smdk5410.h (Partially solved on 06/11/2020)
+    CONFIG_DEFAULT_CONSOLE from /include/configs/smdk5410.h
+
+- It appears that exynos5410-odroidxu.dtb is not created succesfully. The message says 'Device Tree Source is not correctly specified.'. A workaround is to copy
+  dtb directly from precompiled binaries for linux kernel (Solved on 06/11/2020)
+
+- Debug says 'Undefined reference to 'ddr3_mem_ctrl_init'. That's because dmc_common expects CONFIG_EXYNOS5250 or CONFIG_EXYNOS5240
+  but in exynos5410-common.h neither was defined. Maybe it requires a custom EXYNOS5410 section, but it seems that 5250 is the default option for Exynos5 family
+  excluding 5420.
+
+- Checking /arch/arm/cpu/armv7/exynos/clock.c from u-boot v2012.07 it seems that no additional definitions than 5410_get_pll_clk is required with respect to u-boot 2020.
+  Their function definitions are quite the same in terms of names.
+
+
+Relevant compilation logs:
+
+- arm-linux-gnueabi-ld.bfd: arch/arm/mach-exynos/built-in.o: in function `mem_ctrl_init':
+  /home/osboxes/Desktop/u-boot/arch/arm/mach-exynos/dmc_common.c:164: undefined reference to `ddr3_mem_ctrl_init'

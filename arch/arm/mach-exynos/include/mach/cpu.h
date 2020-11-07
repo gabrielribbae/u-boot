@@ -228,6 +228,10 @@ static inline void s5p_set_cpu_id(void)
 		/* Exynos5250 */
 		s5p_cpu_id = 0x5250;
 		break;
+	case 0x410:
+		/* Exynos5410 */
+		s5p_cpu_id = 0x5410;
+		break;
 	case 0x420:
 		/* Exynos5420 */
 		s5p_cpu_id = 0x5420;
@@ -266,6 +270,7 @@ static inline int __attribute__((no_instrument_function)) \
 IS_EXYNOS_TYPE(exynos4210, 0x4210)
 IS_EXYNOS_TYPE(exynos4412, 0x4412)
 IS_EXYNOS_TYPE(exynos5250, 0x5250)
+IS_EXYNOS_TYPE(exynos5410, 0x5410)
 IS_EXYNOS_TYPE(exynos5420, 0x5420)
 IS_EXYNOS_TYPE(exynos5422, 0x5422)
 

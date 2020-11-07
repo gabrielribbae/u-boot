@@ -8,7 +8,7 @@
 #define _EXYNOS_BOARD_H
 
 /*
- * Exynos baord specific changes for
+ * Exynos board specific changes for
  * board_init
  */
 int exynos_init(void);

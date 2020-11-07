@@ -22,7 +22,7 @@
 #define DEFAULT_DQS_X4		((DEFAULT_DQS << 24) || (DEFAULT_DQS << 16) \
 				|| (DEFAULT_DQS << 8) || (DEFAULT_DQS << 0))
 
-#ifdef CONFIG_EXYNOS5250
+#if defined(CONFIG_EXYNOS5250) || defined(CONFIG_EXYNOS5410)
 static void reset_phy_ctrl(void)
 {
 	struct exynos5_clock *clk =

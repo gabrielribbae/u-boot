@@ -12,12 +12,13 @@
 #define EPLL	2
 #define HPLL	3
 #define VPLL	4
-#define BPLL	5
-#define RPLL	6
-#define SPLL	7
-#define CPLL	8
-#define DPLL	9
-#define IPLL	10
+#define KPLL	5
+#define BPLL	6
+#define CPLL	7
+#define DPLL	8
+#define IPLL	9
+#define RPLL	10
+#define SPLL	11
 
 #define MASK_PRE_RATIO(x)	(0xff << ((x << 4) + 8))
 #define MASK_RATIO(x)		(0xf << (x << 4))

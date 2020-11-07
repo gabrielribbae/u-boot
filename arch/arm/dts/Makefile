@@ -19,14 +19,9 @@ dtb-$(CONFIG_TARGET_HIKEY960) += hi3660-hikey960.dtb
 
 dtb-$(CONFIG_TARGET_POPLAR) += hi3798cv200-poplar.dtb
 
-dtb-$(CONFIG_EXYNOS5) += exynos5250-arndale.dtb \
-	exynos5250-snow.dtb \
-	exynos5250-spring.dtb \
-	exynos5250-smdk5250.dtb \
-	exynos5420-smdk5420.dtb \
-	exynos5420-peach-pit.dtb \
-	exynos5800-peach-pi.dtb \
-	exynos5422-odroidxu3.dtb
+dtb-$(CONFIG_EXYNOS5) +=exynos5410-odroidxu.dtb \
+	exynos5410-smdk5410.dtb
+
 dtb-$(CONFIG_EXYNOS7420) += exynos7420-espresso7420.dtb
 
 dtb-$(CONFIG_ARCH_DAVINCI) += \

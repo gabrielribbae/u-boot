@@ -858,6 +858,96 @@ struct exynos5_clock {
 	unsigned char	res123[0xf5d8];
 };
 
+struct exynos5410_clock {
+	unsigned int	apll_lock;			/* 0x1001_0000 */
+	unsigned char	res1[0xfc];
+	unsigned int	apll_con0;			/* 0x1001_0100 */
+	unsigned int	apll_con1;			/* 0x1001_0104 */
+	unsigned char	res2[0xf8];
+	unsigned int	src_cpu;			/* 0x1001_0200 */
+	unsigned char	res3[0x2fc];
+	unsigned int	div_cpu0;			/* 0x1001_0500 */
+	unsigned int	div_cpu1;			/* 0x1001_0504 */
+	unsigned char	res4[0x4f8];
+	unsigned int	clkout_cmu_cpu;			/* 0x1001_0A00 */
+	unsigned char	res5[0x35fc];
+	unsigned int	mpll_lock;			/* 0x1001_4000 */
+	unsigned char	res6[0xfc];
+	unsigned int	mpll_con0;			/* 0x1001_4100 */
+	unsigned int	mpll_con1;			/* 0x1001_4104 */
+	unsigned char	res7[0xf8];
+	unsigned int	src_core0;			/* 0x1001_4200 */
+	unsigned int	src_core1;			/* 0x1001_4204 */
+	unsigned char	res8[0x2fc];
+	unsigned int	div_core1;			/* 0x1001_4504 */
+	unsigned char	res9[0x4f8];
+	unsigned int	clkout_cmu_core;		/* 0x1001_4A00 */
+	unsigned char	res10[0xb71c];
+	unsigned int	cpll_con0;			/* 0x1002_0120 */
+	unsigned int	cpll_con1;			/* 0x1002_0124 */
+	unsigned int	dpll_con0;			/* 0x1002_0128 */
+	unsigned int	dpll_con1;			/* 0x1002_012C */
+	unsigned int	epll_con0;			/* 0x1002_0130 */
+	unsigned int	epll_con1;			/* 0x1002_0134 */
+	unsigned int	epll_con2;			/* 0x1002_0138 */
+	unsigned char	res11[0x4];
+	unsigned int	vpll_con0;			/* 0x1002_0140 */
+	unsigned int	vpll_con1;			/* 0x1002_0144 */
+	unsigned int	vpll_con2;			/* 0x1002_0148 */
+	unsigned char	res12[0x4];
+	unsigned int	ipll_con0;			/* 0x1002_0150 */
+	unsigned int	ipll_con1;			/* 0x1002_0154 */
+	unsigned char	res13[0xb8];
+	unsigned int	src_top0;			/* 0x1002_0210 */
+	unsigned int	src_top1;			/* 0x1002_0214 */
+	unsigned int	src_top2;			/* 0x1002_0218 */
+	unsigned int	src_top3;			/* 0x1002_021C */
+	unsigned char	res14[0x20];
+	unsigned int	src_mau;			/* 0x1002_0240 */
+	unsigned int	src_fsys;			/* 0x1002_0244 */
+	unsigned char	res15[0x8];
+	unsigned int	src_peric0;			/* 0x1002_0250 */
+	unsigned int	src_peric1;			/* 0x1002_0254 */
+	unsigned char	res16[0x2b8];
+	unsigned int	div_top0;			/* 0x1002_0510 */
+	unsigned int	div_top1;			/* 0x1002_0514 */
+	unsigned int	div_top2;			/* 0x1002_0518 */
+	unsigned int	div_top3;			/* 0x1002_051C */
+	unsigned char	res17[0x28];
+	unsigned int	div_fsys0;			/* 0x1002_0548 */
+	unsigned int	div_fsys1;			/* 0x1002_054C */
+	unsigned int	div_fsys2;			/* 0x1002_0550 */
+	unsigned int	div_fsys3;			/* 0x1002_0554 */
+	unsigned int	div_peric0;			/* 0x1002_0558 */
+	unsigned char	res18[0x44];
+	unsigned int	div4_ratio;			/* 0x1002_05A0 */
+	unsigned char	res19[0x45c];
+	unsigned int	clkout_cmu_top;			/* 0x1002_0A00 */
+	unsigned char	res20[0xf60c];
+	unsigned int	bpll_lock;			/* 0x1003_0010 */
+	unsigned char	res21[0xfc];
+	unsigned int	bpll_con0;			/* 0x1003_0110 */
+	unsigned int	bpll_con1;			/* 0x1003_0114 */
+	unsigned char	res22[0xe8];
+	unsigned int	src_cdrex;			/* 0x1003_0200 */
+	unsigned char	res23[0x1fc];
+	unsigned int	mux_stat_cdrex;			/* 0x1003_0400 */
+	unsigned char	res24[0xfc];
+	unsigned int	div_cdrex0;			/* 0x1003_0500 */
+	unsigned int	div_cdrex1;			/* 0x1003_0504 */
+	unsigned char	res25[0x4f8];
+	unsigned int	clkout_cmu_cdrex;		/* 0x1003_0A00 */
+	unsigned char	res26[0x75fc];
+	unsigned int	kpll_lock;			/* 0x1003_8000 */
+	unsigned char	res27[0xfc];
+	unsigned int	kpll_con0;			/* 0x1003_8100 */
+	unsigned int	kpll_con1;			/* 0x1003_8104 */
+	unsigned char	res28[0xf8];
+	unsigned int	src_kfc;			/* 0x1003_8200 */
+	unsigned char	res29[0x2fc];
+	unsigned int	div_kfc;			/* 0x1003_8500 */
+};
+
 struct exynos5420_clock {
 	unsigned int	apll_lock;			/* 0x10010000 */
 	unsigned char	res1[0xfc];

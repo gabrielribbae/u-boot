@@ -1,0 +1,13 @@
+if TARGET_SMDK5410
+
+config SYS_BOARD
+	default "smdk5410"
+
+config SYS_VENDOR
+	default "samsung"
+
+config SYS_CONFIG_NAME
+	default "smdk5410"
+
+endif
+

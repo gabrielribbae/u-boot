@@ -1,0 +1,6 @@
+SMDK5410 BOARD
+M:	Gabriel Ribba <gabriel.ribbae@gmail.com>
+S:	Maintained
+F:	board/samsung/smdk5410/
+F:	include/configs/smdk5410.h
+F:	configs/smdk5410_defconfig

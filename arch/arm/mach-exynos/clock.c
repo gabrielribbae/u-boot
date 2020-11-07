@@ -123,8 +123,9 @@ static int exynos_get_pll_clk(int pllreg, unsigned int r, unsigned int k)
 	 * VPLL_CON: MIDV [24:16]
 	 * BPLL_CON: MIDV [25:16]: Exynos5
 	 */
-	if (pllreg == APLL || pllreg == MPLL || pllreg == BPLL ||
-	    pllreg == SPLL)
+	if (pllreg == APLL || pllreg == MPLL || pllreg == KPLL ||
+		pllreg == BPLL || pllreg == SPLL || pllreg == CPLL ||
+		pllreg == DPLL || pllreg == IPLL)
 		mask = 0x3ff;
 	else
 		mask = 0x1ff;
@@ -160,7 +161,7 @@ static int exynos_get_pll_clk(int pllreg, unsigned int r, unsigned int k)
 		else if (proid_is_exynos4412())
 			div = PLL_DIV_65535;
 		else if (proid_is_exynos5250() || proid_is_exynos5420() ||
-			 proid_is_exynos5422())
+			 proid_is_exynos5422() || proid_is_exynos5410())
 			div = PLL_DIV_65536;
 		else
 			return 0;
@@ -299,6 +300,50 @@ static unsigned long exynos5_get_pll_clk(int pllreg)
 	}
 
 	return fout;
+}
+/* exynos5410: return pll clock frequency */
+static unsigned long exynos5410_get_pll_clk(int pllreg)
+{
+	struct exynos5410_clock *clk =
+		(struct exynos5410_clock *)samsung_get_base_clock();
+	unsigned long r, k = 0;
+
+	switch (pllreg) {
+	case APLL:
+		r = readl(&clk->apll_con0);
+		break;
+	case MPLL:
+		r = readl(&clk->mpll_con0);
+		break;
+	case EPLL:
+		r = readl(&clk->epll_con0);
+		k = readl(&clk->epll_con1);
+		break;
+	case VPLL:
+		r = readl(&clk->vpll_con0);
+		k = readl(&clk->vpll_con1);
+		break;
+	case KPLL:
+		r = readl(&clk->kpll_con0);
+		break;
+	case BPLL:
+		r = readl(&clk->bpll_con0);
+		break;
+	case CPLL:
+		r = readl(&clk->cpll_con0);
+		break;
+	case DPLL:
+		r = readl(&clk->dpll_con0);
+		break;
+	case IPLL:
+		r = readl(&clk->ipll_con0);
+		break;
+	default:
+		printf("Unsupported PLL (%d)\n", pllreg);
+		return 0;
+	}
+
+	return exynos_get_pll_clk(pllreg, r, k);
 }
 
 /* exynos542x: return pll clock frequency */
@@ -1591,6 +1636,8 @@ unsigned long get_pll_clk(int pllreg)
 	if (cpu_is_exynos5()) {
 		if (proid_is_exynos542x())
 			return exynos542x_get_pll_clk(pllreg);
+		if (proid_is_exynos5410())
+			return exynos5410_get_pll_clk(pllreg);
 		return exynos5_get_pll_clk(pllreg);
 	} else if (cpu_is_exynos4()) {
 		if (proid_is_exynos4412())

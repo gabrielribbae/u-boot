@@ -108,6 +108,11 @@ config TARGET_SMDK5250
 	select OF_CONTROL
 	select SUPPORT_SPL
 
+config TARGET_SMDK5410
+	bool "SMDK5410 board"
+	select OF_CONTROL
+	select SUPPORT_SPL
+
 config TARGET_SNOW
 	bool "Snow board"
 	select OF_CONTROL
@@ -165,6 +170,7 @@ source "board/samsung/trats2/Kconfig"
 source "board/samsung/odroid/Kconfig"
 source "board/samsung/arndale/Kconfig"
 source "board/samsung/smdk5250/Kconfig"
+source "board/samsung/smdk5410/Kconfig"
 source "board/samsung/smdk5420/Kconfig"
 source "board/samsung/espresso7420/Kconfig"
 
